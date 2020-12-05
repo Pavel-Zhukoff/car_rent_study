@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="includes/base :: head(${title})">
+
+</head>
+<body>
+<div class="container" style="height: 100%;">
+    <div class="row justify-content-center" style="height: 100%;">
+        <div th:replace="includes/nav :: nav('brand')"></div>
+        <div class="col-8">
+            <div class="page-content">
+                <div class="panel">
+                    <div class="container-fluid">
+                        <div class="row justify-content-end">
+                            <div class="col-3">
+                                <a href="/brand" class="btn"><i class="fas fa-chevron-left"></i>&nbsp;Назад</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <h2 th:text="${form_name}"></h2>
+                                <form th:action="@{/{entity_type}/{action}(action=${action},entity_type=${entity_type})}" th:object="${form}" method="post">
+                                    <ul class="error-list" th:if="${#fields.hasErrors('*')}">
+                                        <li class="error" th:each="err : ${#fields.errors('*')}" th:text="${err}">Ошибка!</li>
+                                    </ul>
+                                    <label th:for="${#ids.next('name')}">Название:</label>
+                                    <input type="text" th:field="*{name}">
+                                    <label th:for="${#ids.next('active')}">Активно:</label>
+                                    <input type="checkbox" th:field="*{active}">
+                                    <input type="submit" value="Создать" class="btn">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title th:text="${title}"></title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" th:href="@{/css/vendor/normalize.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/vendor/bootstrap-grid.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/vendor/bootstrap-reboot.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/vendor/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css">
+
+    <!-- Scripts-->
+    <script th:src="@{/js/vendor/jquery.min.js}" type="application/javascript" defer></script>
+    <script th:src="@{/js/vendor/underscore-min.js}" type="application/javascript" defer></script>
+    <script th:src="@{/js/vendor/json2.js}" type="application/javascript" defer></script>
+    <script th:src="@{/js/vendor/backbone-min.js}" type="application/javascript" defer></script>
+    <script th:src="@{/js/vendor/font-awesome.min.js}" type="application/javascript" defer></script>
+    <script th:src="@{/js/main.js}" type="application/javascript" defer></script>
+</head>
+<body>
+</body>
+</html>

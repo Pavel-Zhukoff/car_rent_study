@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="includes/base :: head(${title})">
+
+</head>
+<body>
+<div class="container" style="height: 100%;">
+    <div class="row justify-content-center align-content-center" style="height: 100%;">
+        <div class="col-5">
+            <div class="panel">
+<!--                <ul class="error-list">-->
+<!--                    <li class="error">Неправильный логин или пароль!</li>-->
+<!--                </ul>-->
+                <form th:action="@{/login}" method="post">
+                    <label for="username">Имя пользователя:</label>
+                    <input type="text" name="username" id="username">
+                    <label for="password">Пароль:</label>
+                    <input type="password" name="password" id="password">
+                    <input type="submit" value="Войти" class="btn">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

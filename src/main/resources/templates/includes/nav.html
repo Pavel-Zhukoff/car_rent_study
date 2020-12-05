@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div th:fragment="nav(active)" class="col-4">
+    <div class="panel">
+        <nav class="nav">
+            <a href="/" class="nav-item" th:classappend="${active} == 'home' ? 'active' : ''">
+                Главная
+            </a>
+            <a href="/brand" class="nav-item" th:classappend="${active} == 'brand' ? 'active' : ''">
+                Марки машин
+            </a>
+            <a href="/model" class="nav-item" th:classappend="${active} == 'model' ? 'active' : ''">
+                Модели машин
+            </a>
+            <a href="/car" class="nav-item" th:classappend="${active} == 'car' ? 'active' : ''">
+                Машины
+            </a>
+        </nav>
+    </div>
+</div>
+</body>
+</html>
