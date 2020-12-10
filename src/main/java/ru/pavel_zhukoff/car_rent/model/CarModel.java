@@ -17,7 +17,7 @@ public class CarModel {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @Column
@@ -30,6 +30,10 @@ public class CarModel {
 
     @OneToMany(targetEntity = Car.class, cascade = CascadeType.ALL, mappedBy = "model")
     private List<Car> cars;
+
+    public String getFullName() {
+        return String.format("%s %s", this.brand.getName(), this.name);
+    }
 
     @Override
     public int hashCode() {

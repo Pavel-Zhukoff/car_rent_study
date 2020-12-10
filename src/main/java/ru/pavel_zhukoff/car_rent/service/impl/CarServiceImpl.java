@@ -1,8 +1,10 @@
 package ru.pavel_zhukoff.car_rent.service.impl;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.pavel_zhukoff.car_rent.model.Car;
+import ru.pavel_zhukoff.car_rent.model.CarModel;
 import ru.pavel_zhukoff.car_rent.repository.CarRepository;
 import ru.pavel_zhukoff.car_rent.service.CarService;
 
@@ -19,17 +21,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void deleteById(Long aLong) {
-        repository.deleteById(aLong);
-    }
-
-    @Override
-    public void delete(Car car) {
-        repository.delete(car);
-    }
-
-    @Override
-    public <S extends Car> S save(S s) {
+    public Car save(Car s) {
         return repository.save(s);
     }
 
@@ -49,7 +41,38 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> findAll(Sort sort) {
-        return repository.findAll(sort);
+    public List<Car> findAllActive() {
+        return repository.findAllByActiveTrue();
+    }
+
+    @Override
+    public Car update(Car u) {
+        if (!this.repository.existsById(u.getId())) {
+            throw new ObjectNotFoundException(u.getId(), "Car");
+        }
+        return this.save(u);
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+        if (this.existsById(aLong)) {
+            this._delete(this.findById(aLong).get());
+        } else {
+            throw new ObjectNotFoundException(aLong, "Car");
+        }
+    }
+
+    @Override
+    public void delete(Car carModel) {
+        if (this.existsById(carModel.getId())) {
+            this._delete(carModel);
+        } else {
+            throw new ObjectNotFoundException(carModel.getId(), "Car");
+        }
+    }
+
+    private void _delete(Car car) {
+        car.setActive(false);
+        this.save(car);
     }
 }

@@ -25,6 +25,10 @@
                                     </ul>
                                     <label th:for="${#ids.next('name')}">Название:</label>
                                     <input type="text" th:field="*{name}">
+                                    <label th:for="${#ids.next('brandId')}">Марка машины</label>
+                                    <select th:field="*{brandId}">
+                                        <option th:each="brand : ${brandSelect}" th:value="${brand.getKey()}" th:text="${brand.getValue()}"></option>
+                                    </select>
                                     <label th:for="${#ids.next('active')}">Активно:</label>
                                     <input type="checkbox" th:field="*{active}">
                                     <input type="submit" value="Создать" class="btn">

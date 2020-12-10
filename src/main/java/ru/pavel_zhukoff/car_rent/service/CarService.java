@@ -14,20 +14,17 @@ public interface CarService {
     
     void delete(Car car);
 
-    
-    <S extends Car> S save(S s);
+    Car save(Car s);
 
+    Car update(Car u);
     
     Optional<Car> findById(Long aLong);
 
-    
     boolean existsById(Long aLong);
 
-    
     List<Car> findAll();
 
-    
-    List<Car> findAll(Sort sort);
+    List<Car> findAllActive();
     
 }
 

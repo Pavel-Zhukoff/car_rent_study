@@ -23,8 +23,25 @@
                                     <ul class="error-list" th:if="${#fields.hasErrors('*')}">
                                         <li class="error" th:each="err : ${#fields.errors('*')}" th:text="${err}">Ошибка!</li>
                                     </ul>
-                                    <label th:for="${#ids.next('name')}">Название:</label>
-                                    <input type="text" th:field="*{name}">
+                                    <label th:for="${#ids.next('number')}">Номер автомоблия:</label>
+                                    <input type="text" th:field="*{number}">
+                                    <label th:for="${#ids.next('run')}">Пробег автомоблия:</label>
+                                    <input type="number" th:field="*{run}">
+                                    <label th:for="${#ids.next('price')}">Стоимость автомоблия (р/сут):</label>
+                                    <input type="number" th:field="*{price}">
+
+                                    <label th:for="${#ids.next('brandId')}"></label>
+                                    <select th:field="*{modelId}">
+                                        <option th:each="model : ${modelSelect}" th:value="${model.getKey()}" th:text="${model.getValue()}"></option>
+                                    </select>
+                                    <label th:for="${#ids.next('colorId')}"></label>
+                                    <select th:field="*{colorId}">
+                                        <option th:each="color : ${colorSelect}" th:value="${color.getKey()}" th:text="${color.getValue()}"></option>
+                                    </select>
+                                    <label th:for="${#ids.next('statusId')}"></label>
+                                    <select th:field="*{statusId}">
+                                        <option th:each="status : ${statusSelect}" th:value="${status.getKey()}" th:text="${status.getValue()}"></option>
+                                    </select>
                                     <label th:for="${#ids.next('active')}">Активно:</label>
                                     <input type="checkbox" th:field="*{active}">
                                     <input type="submit" value="Создать" class="btn">

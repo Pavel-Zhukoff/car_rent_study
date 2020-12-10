@@ -22,12 +22,17 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Override
     Optional<Client> findById(Long aLong);
 
+    Optional<Client> findByDriverId(String driverId);
+
+    Optional<Client> findByPhone(String phone);
+
+    Optional<Client> findByPassport(String passport);
+
     @Override
     boolean existsById(Long aLong);
 
     @Override
     List<Client> findAll();
 
-    @Override
-    List<Client> findAll(Sort sort);
+    List<Client> findAllByActiveTrue();
 }

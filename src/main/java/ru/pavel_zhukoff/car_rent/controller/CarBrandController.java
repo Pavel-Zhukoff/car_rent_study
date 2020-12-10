@@ -41,7 +41,7 @@ public class CarBrandController {
         model.addAttribute("title", "Полный список марок");
         model.addAttribute("items", this.brandService.findAll());
         model.addAttribute("entity_type", "brand");
-        model.addAttribute("list_name", "Марки автомобилей");
+        model.addAttribute("list_name", "Все марки автомобилей");
 
         return "list_view.html";
     }
@@ -117,6 +117,7 @@ public class CarBrandController {
         if (brand.isEmpty()) {
             return "redirect:/brand";
         }
+
         if (result.hasErrors()) {
             model.addAttribute("title", String.format("Изменение: %s", id));
             model.addAttribute("action", String.format("update/%d", id));
@@ -126,11 +127,10 @@ public class CarBrandController {
 
             return "brand/name_form.html";
         }
-        CarBrand u = new CarBrand();
-        u.setId(id);
-        u.setName(form.getName());
-        u.setActive(form.isActive());
-        this.brandService.update(u);
+
+        brand.get().setName(form.getName().strip());
+        brand.get().setActive(form.isActive());
+        this.brandService.update(brand.get());
         return "redirect:/brand";
     }
 

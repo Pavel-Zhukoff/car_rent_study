@@ -1,7 +1,10 @@
 package ru.pavel_zhukoff.car_rent.service.impl;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ru.pavel_zhukoff.car_rent.model.Car;
+import ru.pavel_zhukoff.car_rent.model.CarModel;
 import ru.pavel_zhukoff.car_rent.model.CarRent;
 import ru.pavel_zhukoff.car_rent.repository.CarRentRepository;
 import ru.pavel_zhukoff.car_rent.service.CarRentService;
@@ -19,17 +22,7 @@ public class CarRentServiceImpl implements CarRentService {
     }
 
     @Override
-    public void delete(CarRent carRent) {
-        repository.delete(carRent);
-    }
-
-    @Override
-    public void deleteById(Long aLong) {
-        repository.deleteById(aLong);
-    }
-
-    @Override
-    public <S extends CarRent> S save(S s) {
+    public CarRent save(CarRent s) {
         return repository.save(s);
     }
 
@@ -49,7 +42,43 @@ public class CarRentServiceImpl implements CarRentService {
     }
 
     @Override
-    public List<CarRent> findAll(Sort sort) {
-        return repository.findAll(sort);
+    public List<CarRent> findAllActive() {
+        return repository.findAllByActiveTrue();
+    }
+
+    @Override
+    public List<CarRent> findAllByCar(Car car) {
+        return repository.findAllByCar(car);
+    }
+
+    @Override
+    public CarRent update(CarRent u) {
+        if (!this.repository.existsById(u.getId())) {
+            throw new ObjectNotFoundException(u.getId(), "CarRent");
+        }
+        return this.save(u);
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+        if (this.existsById(aLong)) {
+            this._delete(this.findById(aLong).get());
+        } else {
+            throw new ObjectNotFoundException(aLong, "CarRent");
+        }
+    }
+
+    @Override
+    public void delete(CarRent carRent) {
+        if (this.existsById(carRent.getId())) {
+            this._delete(carRent);
+        } else {
+            throw new ObjectNotFoundException(carRent.getId(), "CarRent");
+        }
+    }
+
+    private void _delete(CarRent carRent) {
+        carRent.setActive(false);
+        this.save(carRent);
     }
 }

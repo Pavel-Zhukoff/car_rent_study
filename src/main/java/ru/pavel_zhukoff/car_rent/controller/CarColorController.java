@@ -14,8 +14,8 @@ import ru.pavel_zhukoff.car_rent.service.CarColorService;
 import javax.validation.Valid;
 import java.util.Optional;
 
-@RequestMapping("/color")
 @Controller
+@RequestMapping("/color")
 @Slf4j
 public class CarColorController {
     
@@ -41,7 +41,7 @@ public class CarColorController {
         model.addAttribute("title", "Полный список цветов");
         model.addAttribute("items", this.colorService.findAll());
         model.addAttribute("entity_type", "color");
-        model.addAttribute("list_name", "Цвета автомобилей");
+        model.addAttribute("list_name", "Все цвета автомобилей");
         return "list_view.html";
     }
 
@@ -122,11 +122,9 @@ public class CarColorController {
             model.addAttribute("form_name", "Обновление цвета");
             return "color/name_form.html";
         }
-        CarColor u = new CarColor();
-        u.setId(id);
-        u.setName(form.getName());
-        u.setActive(form.isActive());
-        this.colorService.update(u);
+        color.get().setName(form.getName().strip());
+        color.get().setActive(form.isActive());
+        this.colorService.update(color.get());
         return "redirect:/color";
     }
 

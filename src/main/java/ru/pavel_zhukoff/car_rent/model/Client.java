@@ -21,6 +21,18 @@ public class Client {
     private String phone;
 
     @Column(unique = true, nullable = false)
+    private String passport;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = true)
+    private String thirdName;
+
+    @Column(unique = true, nullable = false)
     private String driverId;
 
     @OneToMany(targetEntity = CarRent.class, mappedBy = "client")
@@ -29,6 +41,10 @@ public class Client {
     @Column
     @ColumnDefault("true")
     private boolean active;
+
+    public String getFullName() {
+        return String.format("%s %s %s", this.lastName, this.lastName, this.thirdName);
+    }
 
     @Override
     public int hashCode() {

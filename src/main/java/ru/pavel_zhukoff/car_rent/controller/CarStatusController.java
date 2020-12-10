@@ -41,7 +41,7 @@ public class CarStatusController {
         model.addAttribute("title", "Полный список статусов");
         model.addAttribute("items", this.statusService.findAll());
         model.addAttribute("entity_type", "status");
-        model.addAttribute("list_name", "Статусы автомобилей");
+        model.addAttribute("list_name", "Все статусы автомобилей");
         return "list_view.html";
     }
 
@@ -122,11 +122,9 @@ public class CarStatusController {
             model.addAttribute("form_name", "Обновление статуса");
             return "status/name_form.html";
         }
-        CarStatus u = new CarStatus();
-        u.setId(id);
-        u.setName(form.getName());
-        u.setActive(form.isActive());
-        this.statusService.update(u);
+        status.get().setName(form.getName());
+        status.get().setActive(form.isActive());
+        this.statusService.update(status.get());
         return "redirect:/status";
     }
 

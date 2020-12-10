@@ -13,18 +13,24 @@ public interface ClientService {
     
     void delete(Client client);
 
-    
-    <S extends Client> S save(S s);
 
-    
+    Client save(Client s);
+
+    Client update(Client u);
+
     Optional<Client> findById(Long aLong);
 
-    
+    Optional<Client> findByDriverId(String driverId);
+
+    Optional<Client> findByPhone(String phone);
+
+    Optional<Client> findByPassport(String passport);
+
     boolean existsById(Long aLong);
 
     
     List<Client> findAll();
 
     
-    List<Client> findAll(Sort sort);
+    List<Client> findAllActive();
 }

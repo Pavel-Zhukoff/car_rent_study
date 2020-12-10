@@ -23,8 +23,18 @@
                                     <ul class="error-list" th:if="${#fields.hasErrors('*')}">
                                         <li class="error" th:each="err : ${#fields.errors('*')}" th:text="${err}">Ошибка!</li>
                                     </ul>
-                                    <label th:for="${#ids.next('name')}">Название:</label>
-                                    <input type="text" th:field="*{name}">
+                                    <label th:for="${#ids.next('startDate')}">Время старта:</label>
+                                    <input type="date" th:field="*{startDate}">
+                                    <label th:for="${#ids.next('endDate')}">Время окончания:</label>
+                                    <input type="date" th:field="*{endDate}">
+                                    <label th:for="${#ids.next('carId')}">Машина</label>
+                                    <select th:field="*{carId}">
+                                        <option th:each="car : ${carSelect}" th:value="${car.getKey()}" th:text="${car.getValue()}"></option>
+                                    </select>
+                                    <label th:for="${#ids.next('clientId')}">Клиент</label>
+                                    <select th:field="*{clientId}">
+                                        <option th:each="client : ${clientSelect}" th:value="${client.getKey()}" th:text="${client.getValue()}"></option>
+                                    </select>
                                     <label th:for="${#ids.next('active')}">Активно:</label>
                                     <input type="checkbox" th:field="*{active}">
                                     <input type="submit" value="Создать" class="btn">

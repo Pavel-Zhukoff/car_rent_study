@@ -1,41 +1,57 @@
 package ru.pavel_zhukoff.car_rent.service.impl;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.pavel_zhukoff.car_rent.model.Car;
-import ru.pavel_zhukoff.car_rent.repository.CarRepository;
-import ru.pavel_zhukoff.car_rent.service.CarService;
+import ru.pavel_zhukoff.car_rent.model.CarStatus;
+import ru.pavel_zhukoff.car_rent.model.Client;
+import ru.pavel_zhukoff.car_rent.repository.ClientRepository;
+import ru.pavel_zhukoff.car_rent.service.ClientService;
+import ru.pavel_zhukoff.car_rent.service.ClientService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClientServiceImpl implements CarService {
+public class ClientServiceImpl implements ClientService {
 
-    private final CarRepository repository;
+    private final ClientRepository repository;
 
-    public ClientServiceImpl(CarRepository repository) {
+    public ClientServiceImpl(ClientRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public void deleteById(Long aLong) {
-        repository.deleteById(aLong);
-    }
-
-    @Override
-    public void delete(Car car) {
-        repository.delete(car);
-    }
-
-    @Override
-    public <S extends Car> S save(S s) {
+    public Client save(Client s) {
         return repository.save(s);
     }
 
     @Override
-    public Optional<Car> findById(Long aLong) {
+    public Optional<Client> findById(Long aLong) {
         return repository.findById(aLong);
+    }
+
+    @Override
+    public Client update(Client u) {
+        if (!this.repository.existsById(u.getId())) {
+            throw new ObjectNotFoundException(u.getId(), "Client");
+        }
+        return this.save(u);
+    }
+
+    @Override
+    public Optional<Client> findByDriverId(String driverId) {
+        return repository.findByDriverId(driverId);
+    }
+
+    @Override
+    public Optional<Client> findByPhone(String phone) {
+        return repository.findByPhone(phone);
+    }
+
+    @Override
+    public Optional<Client> findByPassport(String passport) {
+        return repository.findByPassport(passport);
     }
 
     @Override
@@ -44,12 +60,35 @@ public class ClientServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> findAll() {
+    public List<Client> findAll() {
         return repository.findAll();
     }
 
+    public List<Client> findAllActive() {
+        return repository.findAllByActiveTrue();
+    }
+
+
     @Override
-    public List<Car> findAll(Sort sort) {
-        return repository.findAll(sort);
+    public void deleteById(Long aLong) {
+        if (this.existsById(aLong)) {
+            this._delete(this.findById(aLong).get());
+        } else {
+            throw new ObjectNotFoundException(aLong, "Client");
+        }
+    }
+
+    @Override
+    public void delete(Client client) {
+        if (this.existsById(client.getId())) {
+            this._delete(client);
+        } else {
+            throw new ObjectNotFoundException(client.getId(), "Client");
+        }
+    }
+
+    private void _delete(Client client) {
+        client.setActive(false);
+        this.save(client);
     }
 }

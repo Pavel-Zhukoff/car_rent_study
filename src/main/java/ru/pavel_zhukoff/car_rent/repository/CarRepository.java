@@ -28,6 +28,5 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     @Override
     List<Car> findAll();
 
-    @Override
-    List<Car> findAll(Sort sort);
+    List<Car> findAllByActiveTrue();
 }

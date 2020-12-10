@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="includes/base :: head(${title})">
+
+</head>
+<body>
+<div class="container" style="height: 100%;">
+    <div class="row justify-content-center" style="height: 100%;">
+        <div th:replace="includes/nav :: nav(${entity_type})"></div>
+        <div class="col-8">
+            <div class="page-content">
+                <div class="panel">
+                    <div class="container-fluid">
+                        <div class="row justify-content-end">
+                            <div class="col-3">
+                                <a th:href="@{/{entity_type}/add(entity_type=${entity_type})}" class="btn"><i class="fas fa-plus"></i>&nbsp;Создать</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h2 th:text="${list_name}"></h2>
+                                <table class="list">
+                                    <thead class="list-header">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Автомобиль</th>
+                                    <th scope="col">№ ВУ клиента</th>
+                                    <th scope="col">Дата начала</th>
+                                    <th scope="col">Дата окончания</th>
+                                    <th scope="col"></th>
+                                    </thead>
+                                    <tbody class="list-body"  th:if="!${#lists.isEmpty(items)}">
+                                    <tr th:each="item : ${items}">
+                                        <td scope="row" th:text="${item.id}">
+                                            #
+                                        </td>
+                                        <td th:text="${item.car.model.getFullName()}">
+                                            Автомобиль
+                                        </td>
+                                        <td th:text="${item.client.driverId}">
+                                            № ВУ
+                                        </td>
+                                        <td th:text="${item.startDate}">
+                                            Дата начала
+                                        </td>
+                                        <td th:text="${item.endDate}">
+                                            Дата окончания
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/{entity_type}/update/{id}(id=${item.id},entity_type=${entity_type})}" class="btn green" title="Изменить">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            &nbsp;
+                                            <a th:href="@{/{entity_type}/delete/{id}(id=${item.id},entity_type=${entity_type})}" class="btn red" title="Удалить">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody class="list-body"  th:if="${#lists.isEmpty(items)}">
+                                    <tr>
+                                        <td>Ничего не найдено!</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -29,12 +29,6 @@ public class Car {
     @Column(nullable = false)
     private Double price;
 
-    @Column(nullable = false)
-    private Double longitude;
-
-    @Column(nullable = false)
-    private Double latitude;
-
     @Column
     @ColumnDefault("true")
     private boolean active;
@@ -50,8 +44,6 @@ public class Car {
     @ManyToOne(targetEntity = CarModel.class)
     @JoinColumn(name = "model_id")
     private CarModel model;
-
-
 
     @OneToMany(targetEntity = CarRent.class, mappedBy = "car")
     private List<CarRent> rents;

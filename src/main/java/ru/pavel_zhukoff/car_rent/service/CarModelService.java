@@ -1,6 +1,7 @@
 package ru.pavel_zhukoff.car_rent.service;
 
 import org.springframework.data.domain.Sort;
+import ru.pavel_zhukoff.car_rent.model.CarBrand;
 import ru.pavel_zhukoff.car_rent.model.CarModel;
 
 import java.util.List;
@@ -14,18 +15,20 @@ public interface CarModelService {
     
     void delete(CarModel carModel);
 
-    
-    <S extends CarModel> S save(S s);
 
+    CarModel save(CarModel s);
+
+    CarModel update(CarModel u);
     
     Optional<CarModel> findById(Long aLong);
 
-    
+    Optional<CarModel> findByName(String name);
+
     boolean existsById(Long aLong);
 
     
     List<CarModel> findAll();
 
     
-    List<CarModel> findAll(Sort sort);
+    List<CarModel> findAllActive();
 }

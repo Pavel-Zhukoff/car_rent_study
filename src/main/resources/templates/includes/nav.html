@@ -17,8 +17,20 @@
             <a href="/model" class="nav-item" th:classappend="${active} == 'model' ? 'active' : ''">
                 Модели машин
             </a>
+            <a href="/color" class="nav-item" th:classappend="${active} == 'color' ? 'active' : ''">
+                Цвета машин
+            </a>
+            <a href="/status" class="nav-item" th:classappend="${active} == 'status' ? 'active' : ''">
+                Статусы машин
+            </a>
             <a href="/car" class="nav-item" th:classappend="${active} == 'car' ? 'active' : ''">
                 Машины
+            </a>
+            <a href="/client" class="nav-item" th:classappend="${active} == 'client' ? 'active' : ''">
+                Клиенты
+            </a>
+            <a href="/rent" class="nav-item" th:classappend="${active} == 'rent' ? 'active' : ''">
+                Аренда
             </a>
         </nav>
     </div>
